@@ -1,0 +1,7 @@
+# VS
+.vscode/
+*.code-workspace
+
+# Ignore all files in the .env directory
+.env
+.env.local

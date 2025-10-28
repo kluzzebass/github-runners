@@ -1,0 +1,29 @@
+# Modern Docker Compose spec – no `version:` key required
+services:
+  runner:
+    image: ghcr.io/actions/actions-runner:latest
+
+    # Environment variables (Compose will expand from your .env)
+    environment:
+      # — Required —
+      ACCESS_TOKEN: ${ACCESS_TOKEN:?ACCESS_TOKEN is required}
+
+      # — One of these must be set in .env —
+      ORG: ${ORG:-}
+      REPO: ${REPO:-}
+      ENTERPRISE: ${ENTERPRISE:-}
+
+      # — Optional with defaults —
+      LABELS: ${LABELS:-self-hosted,linux,x64}
+      RUNNER_WORKDIR: ${RUNNER_WORKDIR:-/runner/_work}
+      RUNNER_ROOT: ${RUNNER_ROOT:-/runners}
+
+    # Persistence + entrypoint mount
+    volumes:
+      - ${RUNNER_ROOT:-./runner-data}:/runners
+      - ./entrypoint.sh:/entrypoint.sh:ro
+
+    entrypoint: ["/entrypoint.sh"]
+
+    restart: unless-stopped
+    stop_grace_period: 30s # allow graceful deregistration before kill
