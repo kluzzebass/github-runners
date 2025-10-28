@@ -3,7 +3,7 @@ on: [workflow_dispatch]
 
 jobs:
   check-runner:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: [self-hosted]
     steps:
       - name: Show runner info
         run: |
