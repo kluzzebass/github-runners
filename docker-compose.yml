@@ -22,8 +22,7 @@ services:
     volumes:
       - ${RUNNER_ROOT:-./runner-data}:/runners
       - ./entrypoint.sh:/entrypoint.sh:ro
-      - type: tmpfs
-        target: /runners/_work
+      - ${RUNNER_ROOT:-./runner-data}/_work:/runners/_work
 
     entrypoint: ["/entrypoint.sh"]
 
