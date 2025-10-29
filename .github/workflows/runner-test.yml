@@ -1,12 +1,8 @@
-name: Test self-hosted runners
+name: self-hosted test
 on: [workflow_dispatch]
 
 jobs:
-  check-runner:
+  runner-job:
     runs-on: [self-hosted]
     steps:
-      - name: Show runner info
-        run: |
-          echo "Hostname: $(hostname)"
-          echo "Running as $(whoami)"
-          uname -a
+      - run: echo "Hi from runner $(hostname)"

@@ -15,13 +15,15 @@ services:
 
       # — Optional with defaults —
       LABELS: ${LABELS:-self-hosted,linux,x64}
-      RUNNER_WORKDIR: ${RUNNER_WORKDIR:-/runner/_work}
+      RUNNER_WORKDIR: ${RUNNER_WORKDIR:-/runners/_work}
       RUNNER_ROOT: ${RUNNER_ROOT:-/runners}
 
     # Persistence + entrypoint mount
     volumes:
       - ${RUNNER_ROOT:-./runner-data}:/runners
       - ./entrypoint.sh:/entrypoint.sh:ro
+      - type: tmpfs
+        target: /runners/_work
 
     entrypoint: ["/entrypoint.sh"]
 
