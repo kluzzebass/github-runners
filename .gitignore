@@ -5,3 +5,6 @@
 # Ignore all files in the .env directory
 .env
 .env.local
+
+# Ignore all files in the runner-data directory
+runner-data/
